@@ -959,6 +959,525 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
     ],
     outputs: [],
   },
+
+  // ─── UI Templates — Atoms ──────────────────────────────────────
+  {
+    id: "ui-button",
+    name: "Button",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Interactive clickable element",
+    inputs: [
+      { id: "in-label", label: "Label", dataType: "string", cardinality: "one", required: true },
+      { id: "in-variant", label: "Variant", dataType: "string", cardinality: "one", required: false },
+      { id: "in-disabled", label: "Disabled", dataType: "boolean", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-click", label: "onClick", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-text",
+    name: "Text",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Typographic text element",
+    inputs: [
+      { id: "in-content", label: "Content", dataType: "string", cardinality: "one", required: true },
+      { id: "in-variant", label: "Variant", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-rendered", label: "Rendered", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-icon",
+    name: "Icon",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "SVG icon element",
+    inputs: [
+      { id: "in-name", label: "Icon Name", dataType: "string", cardinality: "one", required: true },
+      { id: "in-size", label: "Size", dataType: "number", cardinality: "one", required: false },
+      { id: "in-color", label: "Color", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-rendered", label: "Rendered", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-input",
+    name: "Input Field",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Text input control",
+    inputs: [
+      { id: "in-placeholder", label: "Placeholder", dataType: "string", cardinality: "one", required: false },
+      { id: "in-value", label: "Value", dataType: "string", cardinality: "one", required: false },
+      { id: "in-type", label: "Type", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-value", label: "Value", dataType: "string", cardinality: "one", required: false },
+      { id: "out-change", label: "onChange", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-image",
+    name: "Image",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Image display element",
+    inputs: [
+      { id: "in-src", label: "Src", dataType: "string", cardinality: "one", required: true },
+      { id: "in-alt", label: "Alt", dataType: "string", cardinality: "one", required: false },
+      { id: "in-width", label: "Width", dataType: "number", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-load", label: "onLoad", dataType: "event", cardinality: "one", required: false },
+      { id: "out-error", label: "onError", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-badge",
+    name: "Badge",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Small status or label indicator",
+    inputs: [
+      { id: "in-label", label: "Label", dataType: "string", cardinality: "one", required: true },
+      { id: "in-color", label: "Color", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-rendered", label: "Rendered", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-spinner",
+    name: "Spinner",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Loading indicator",
+    inputs: [
+      { id: "in-loading", label: "Loading", dataType: "boolean", cardinality: "one", required: true },
+      { id: "in-size", label: "Size", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-rendered", label: "Rendered", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-divider",
+    name: "Divider",
+    category: "UI Templates / Atoms",
+    nodeType: "ui-atom",
+    description: "Horizontal or vertical separator line",
+    inputs: [
+      { id: "in-orientation", label: "Orientation", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-rendered", label: "Rendered", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+
+  // ─── UI Templates — Molecules ──────────────────────────────────
+  {
+    id: "ui-search-bar",
+    name: "Search Bar",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Input + icon + clear button composite",
+    inputs: [
+      { id: "in-placeholder", label: "Placeholder", dataType: "string", cardinality: "one", required: false },
+      { id: "in-value", label: "Query", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-query", label: "Query", dataType: "string", cardinality: "one", required: false },
+      { id: "out-submit", label: "onSubmit", dataType: "event", cardinality: "one", required: false },
+      { id: "out-clear", label: "onClear", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-form-field",
+    name: "Form Field",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Label + input + validation message",
+    inputs: [
+      { id: "in-label", label: "Label", dataType: "string", cardinality: "one", required: true },
+      { id: "in-value", label: "Value", dataType: "string", cardinality: "one", required: false },
+      { id: "in-error", label: "Error", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-value", label: "Value", dataType: "string", cardinality: "one", required: false },
+      { id: "out-valid", label: "Valid", dataType: "boolean", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-card",
+    name: "Card",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Contained surface with header, body, footer slots",
+    inputs: [
+      { id: "in-title", label: "Title", dataType: "string", cardinality: "one", required: false },
+      { id: "in-content", label: "Content", dataType: "object", cardinality: "one", required: false },
+      { id: "in-actions", label: "Actions", dataType: "object", cardinality: "many", required: false },
+    ],
+    outputs: [
+      { id: "out-action", label: "onAction", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-tooltip",
+    name: "Tooltip",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Hover-triggered contextual hint",
+    inputs: [
+      { id: "in-content", label: "Content", dataType: "string", cardinality: "one", required: true },
+      { id: "in-trigger", label: "Trigger", dataType: "signal", cardinality: "one", required: true },
+      { id: "in-placement", label: "Placement", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-visible", label: "Visible", dataType: "boolean", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-dropdown",
+    name: "Dropdown Menu",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Trigger + floating option list",
+    inputs: [
+      { id: "in-items", label: "Items", dataType: "object", cardinality: "many", required: true },
+      { id: "in-selected", label: "Selected", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-selected", label: "Selected", dataType: "string", cardinality: "one", required: false },
+      { id: "out-change", label: "onChange", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-tabs",
+    name: "Tab Bar",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Horizontal tab navigation strip",
+    inputs: [
+      { id: "in-tabs", label: "Tabs", dataType: "object", cardinality: "many", required: true },
+      { id: "in-active", label: "Active Tab", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-active", label: "Active", dataType: "string", cardinality: "one", required: false },
+      { id: "out-change", label: "onChange", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-modal",
+    name: "Modal",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Overlay dialog with backdrop",
+    inputs: [
+      { id: "in-open", label: "Open", dataType: "boolean", cardinality: "one", required: true },
+      { id: "in-title", label: "Title", dataType: "string", cardinality: "one", required: false },
+      { id: "in-content", label: "Content", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-close", label: "onClose", dataType: "event", cardinality: "one", required: false },
+      { id: "out-confirm", label: "onConfirm", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-notification",
+    name: "Notification",
+    category: "UI Templates / Molecules",
+    nodeType: "ui-molecule",
+    description: "Toast or banner alert message",
+    inputs: [
+      { id: "in-message", label: "Message", dataType: "string", cardinality: "one", required: true },
+      { id: "in-type", label: "Type", dataType: "string", cardinality: "one", required: false },
+      { id: "in-trigger", label: "Trigger", dataType: "event", cardinality: "one", required: true },
+    ],
+    outputs: [
+      { id: "out-dismissed", label: "onDismiss", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+
+  // ─── UI Templates — Organisms ──────────────────────────────────
+  {
+    id: "ui-navbar",
+    name: "Navigation Bar",
+    category: "UI Templates / Organisms",
+    nodeType: "ui-organism",
+    description: "Top-level site header with nav links and actions",
+    inputs: [
+      { id: "in-brand", label: "Brand", dataType: "object", cardinality: "one", required: false },
+      { id: "in-links", label: "Nav Links", dataType: "object", cardinality: "many", required: false },
+      { id: "in-actions", label: "Actions", dataType: "object", cardinality: "many", required: false },
+      { id: "in-user", label: "User", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-navigate", label: "onNavigate", dataType: "event", cardinality: "one", required: false },
+      { id: "out-action", label: "onAction", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-data-table",
+    name: "Data Table",
+    category: "UI Templates / Organisms",
+    nodeType: "ui-organism",
+    description: "Paginated, sortable, filterable data grid",
+    inputs: [
+      { id: "in-rows", label: "Rows", dataType: "object", cardinality: "many", required: true },
+      { id: "in-columns", label: "Columns", dataType: "object", cardinality: "many", required: true },
+      { id: "in-page", label: "Page", dataType: "number", cardinality: "one", required: false },
+      { id: "in-filters", label: "Filters", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-selected", label: "Selected Rows", dataType: "object", cardinality: "many", required: false },
+      { id: "out-sort", label: "Sort Change", dataType: "event", cardinality: "one", required: false },
+      { id: "out-page", label: "Page Change", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-form",
+    name: "Form",
+    category: "UI Templates / Organisms",
+    nodeType: "ui-organism",
+    description: "Multi-field form with validation and submission",
+    inputs: [
+      { id: "in-schema", label: "Schema", dataType: "object", cardinality: "one", required: true },
+      { id: "in-defaults", label: "Default Values", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-values", label: "Form Values", dataType: "object", cardinality: "one", required: false },
+      { id: "out-submit", label: "onSubmit", dataType: "event", cardinality: "one", required: false },
+      { id: "out-valid", label: "Valid", dataType: "boolean", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-sidebar",
+    name: "Sidebar",
+    category: "UI Templates / Organisms",
+    nodeType: "ui-organism",
+    description: "Collapsible side navigation panel",
+    inputs: [
+      { id: "in-items", label: "Nav Items", dataType: "object", cardinality: "many", required: true },
+      { id: "in-collapsed", label: "Collapsed", dataType: "boolean", cardinality: "one", required: false },
+      { id: "in-active", label: "Active Route", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-navigate", label: "onNavigate", dataType: "event", cardinality: "one", required: false },
+      { id: "out-toggle", label: "onToggle", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-hero",
+    name: "Hero Section",
+    category: "UI Templates / Organisms",
+    nodeType: "ui-organism",
+    description: "Full-width landing section with headline, CTA",
+    inputs: [
+      { id: "in-headline", label: "Headline", dataType: "string", cardinality: "one", required: true },
+      { id: "in-subheadline", label: "Sub-headline", dataType: "string", cardinality: "one", required: false },
+      { id: "in-cta", label: "CTA Label", dataType: "string", cardinality: "one", required: false },
+      { id: "in-bg", label: "Background", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-cta", label: "onCTA", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-profile-card",
+    name: "Profile Card",
+    category: "UI Templates / Organisms",
+    nodeType: "ui-organism",
+    description: "User avatar, name, role, and action buttons",
+    inputs: [
+      { id: "in-user", label: "User", dataType: "object", cardinality: "one", required: true },
+      { id: "in-actions", label: "Actions", dataType: "object", cardinality: "many", required: false },
+    ],
+    outputs: [
+      { id: "out-action", label: "onAction", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+
+  // ─── UI Templates — Templates (Page-level) ─────────────────────
+  {
+    id: "ui-dashboard-layout",
+    name: "Dashboard Layout",
+    category: "UI Templates / Templates",
+    nodeType: "ui-template",
+    description: "Sidebar + topbar + main content area skeleton",
+    inputs: [
+      { id: "in-sidebar", label: "Sidebar", dataType: "signal", cardinality: "one", required: false },
+      { id: "in-navbar", label: "Navbar", dataType: "signal", cardinality: "one", required: false },
+      { id: "in-content", label: "Content", dataType: "signal", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-layout", label: "Layout", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-auth-layout",
+    name: "Auth Layout",
+    category: "UI Templates / Templates",
+    nodeType: "ui-template",
+    description: "Centered card layout for login / signup flows",
+    inputs: [
+      { id: "in-form", label: "Form", dataType: "signal", cardinality: "one", required: false },
+      { id: "in-brand", label: "Brand", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-layout", label: "Layout", dataType: "signal", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-settings-layout",
+    name: "Settings Layout",
+    category: "UI Templates / Templates",
+    nodeType: "ui-template",
+    description: "Tabbed or sectioned settings page skeleton",
+    inputs: [
+      { id: "in-sections", label: "Sections", dataType: "object", cardinality: "many", required: true },
+      { id: "in-active", label: "Active Section", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-active", label: "Active", dataType: "string", cardinality: "one", required: false },
+      { id: "out-save", label: "onSave", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-list-detail-layout",
+    name: "List-Detail Layout",
+    category: "UI Templates / Templates",
+    nodeType: "ui-template",
+    description: "Master list + detail panel two-column layout",
+    inputs: [
+      { id: "in-items", label: "Items", dataType: "object", cardinality: "many", required: true },
+      { id: "in-selected", label: "Selected", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-selected", label: "onSelect", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+
+  // ─── UI Templates — Pages ──────────────────────────────────────
+  {
+    id: "ui-landing-page",
+    name: "Landing Page",
+    category: "UI Templates / Pages",
+    nodeType: "ui-page",
+    description: "Full marketing landing page composition",
+    inputs: [
+      { id: "in-content", label: "Content Data", dataType: "object", cardinality: "one", required: false },
+      { id: "in-theme", label: "Theme", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-cta", label: "onCTA", dataType: "event", cardinality: "one", required: false },
+      { id: "out-navigate", label: "onNavigate", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-dashboard-page",
+    name: "Dashboard Page",
+    category: "UI Templates / Pages",
+    nodeType: "ui-page",
+    description: "Analytics dashboard with charts, stats, and tables",
+    inputs: [
+      { id: "in-metrics", label: "Metrics", dataType: "object", cardinality: "many", required: false },
+      { id: "in-user", label: "User", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-action", label: "onAction", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-crud-page",
+    name: "CRUD Page",
+    category: "UI Templates / Pages",
+    nodeType: "ui-page",
+    description: "List + create/edit/delete full resource management page",
+    inputs: [
+      { id: "in-resource", label: "Resource", dataType: "string", cardinality: "one", required: true },
+      { id: "in-items", label: "Items", dataType: "object", cardinality: "many", required: false },
+      { id: "in-schema", label: "Schema", dataType: "object", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-create", label: "onCreate", dataType: "event", cardinality: "one", required: false },
+      { id: "out-update", label: "onUpdate", dataType: "event", cardinality: "one", required: false },
+      { id: "out-delete", label: "onDelete", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-profile-page",
+    name: "Profile Page",
+    category: "UI Templates / Pages",
+    nodeType: "ui-page",
+    description: "User profile with avatar, bio, activity feed",
+    inputs: [
+      { id: "in-user", label: "User", dataType: "object", cardinality: "one", required: true },
+      { id: "in-editable", label: "Editable", dataType: "boolean", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-save", label: "onSave", dataType: "event", cardinality: "one", required: false },
+    ],
+  },
+
+  // ─── UI Templates — Design Tokens ─────────────────────────────
+  {
+    id: "ui-color-token",
+    name: "Color Token",
+    category: "UI Templates / Design Tokens",
+    nodeType: "ui-token",
+    description: "Named color value from the design system",
+    inputs: [],
+    outputs: [
+      { id: "out-hex", label: "Hex", dataType: "string", cardinality: "one", required: false },
+      { id: "out-rgb", label: "RGB", dataType: "object", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-typography-token",
+    name: "Typography Token",
+    category: "UI Templates / Design Tokens",
+    nodeType: "ui-token",
+    description: "Font family, size, weight, and line-height bundle",
+    inputs: [],
+    outputs: [
+      { id: "out-style", label: "Style Object", dataType: "object", cardinality: "one", required: false },
+      { id: "out-class", label: "CSS Class", dataType: "string", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-spacing-token",
+    name: "Spacing Token",
+    category: "UI Templates / Design Tokens",
+    nodeType: "ui-token",
+    description: "Spacing scale value (margin, padding, gap)",
+    inputs: [
+      { id: "in-scale", label: "Scale Step", dataType: "number", cardinality: "one", required: true },
+    ],
+    outputs: [
+      { id: "out-px", label: "Pixels", dataType: "number", cardinality: "one", required: false },
+      { id: "out-rem", label: "Rem", dataType: "string", cardinality: "one", required: false },
+    ],
+  },
+  {
+    id: "ui-theme",
+    name: "Theme",
+    category: "UI Templates / Design Tokens",
+    nodeType: "ui-token",
+    description: "Full design token bundle for a color mode or brand",
+    inputs: [
+      { id: "in-mode", label: "Mode", dataType: "string", cardinality: "one", required: false },
+    ],
+    outputs: [
+      { id: "out-tokens", label: "Tokens", dataType: "object", cardinality: "one", required: false },
+      { id: "out-css-vars", label: "CSS Vars", dataType: "object", cardinality: "one", required: false },
+    ],
+  },
 ];
 
 export const CATEGORY_COLORS: Record<string, string> = {
@@ -976,4 +1495,10 @@ export const CATEGORY_COLORS: Record<string, string> = {
   Music: "#f472b6",
   Aggregations: "#38bdf8",
   Monitoring: "#818cf8",
+  "UI Templates / Atoms": "#e2e8f0",
+  "UI Templates / Molecules": "#cbd5e1",
+  "UI Templates / Organisms": "#93c5fd",
+  "UI Templates / Templates": "#7dd3fc",
+  "UI Templates / Pages": "#38bdf8",
+  "UI Templates / Design Tokens": "#67e8f9",
 };

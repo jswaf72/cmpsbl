@@ -123,7 +123,13 @@ export type NodeCategory =
   | "AI / ML"
   | "Music"
   | "Aggregations"
-  | "Monitoring";
+  | "Monitoring"
+  | "UI Templates / Atoms"
+  | "UI Templates / Molecules"
+  | "UI Templates / Organisms"
+  | "UI Templates / Templates"
+  | "UI Templates / Pages"
+  | "UI Templates / Design Tokens";
 
 export interface StudioNodeData extends Record<string, unknown> {
   label: string;

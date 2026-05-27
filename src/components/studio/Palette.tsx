@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Search, Plus, ChevronDown, ChevronRight } from "lucide-react";
+import { Search, Plus, ChevronDown, ChevronRight, Layers } from "lucide-react";
 import { NODE_TEMPLATES, CATEGORY_COLORS } from "./nodeTemplates";
 import { NodeCategory, NodeTemplate } from "./types";
 import { useStudioStore } from "./store";
@@ -19,7 +19,18 @@ const CATEGORIES: NodeCategory[] = [
   "Music",
   "Aggregations",
   "Monitoring",
+  "UI Templates / Atoms",
+  "UI Templates / Molecules",
+  "UI Templates / Organisms",
+  "UI Templates / Templates",
+  "UI Templates / Pages",
+  "UI Templates / Design Tokens",
 ];
+
+// Track which category is the first in a named group so we can show a group header
+const GROUP_FIRST_CATEGORY: Record<string, string> = {
+  "UI Templates / Atoms": "UI Templates",
+};
 
 interface PaletteProps {
   onDragStart: (templateId: string) => void;
@@ -149,8 +160,39 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
         {Object.entries(byCategory).map(([category, templates]) => {
           const color = CATEGORY_COLORS[category] || "#3b82f6";
           const isCollapsed = effectiveCollapsed[category];
+          const groupHeader = GROUP_FIRST_CATEGORY[category];
+          // For sub-categories, show a shorter label (after the /)
+          const isSubCat = category.includes(" / ");
+          const displayLabel = isSubCat ? category.split(" / ")[1] : category;
           return (
             <div key={category}>
+              {/* Group header separator for first item in a group */}
+              {groupHeader && !search.trim() && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "10px 14px 4px",
+                    marginTop: "4px",
+                    borderTop: "1px solid #1f2535",
+                  }}
+                >
+                  <Layers style={{ width: "11px", height: "11px", color: "#7dd3fc" }} />
+                  <span
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      color: "#7dd3fc",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      fontFamily: "'JetBrains Mono', monospace",
+                    }}
+                  >
+                    {groupHeader}
+                  </span>
+                </div>
+              )}
               <button
                 onClick={() => toggleCategory(category)}
                 style={{
@@ -158,7 +200,7 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
                   display: "flex",
                   alignItems: "center",
                   gap: "6px",
-                  padding: "6px 14px",
+                  padding: isSubCat ? "5px 14px 5px 22px" : "6px 14px",
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
@@ -175,7 +217,7 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
                 ) : (
                   <ChevronDown style={{ width: "12px", height: "12px", color }} />
                 )}
-                <span style={{ color }}>{category}</span>
+                <span style={{ color }}>{displayLabel}</span>
                 <span
                   style={{
                     marginLeft: "auto",
@@ -195,6 +237,7 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
                     key={template.id}
                     template={template}
                     color={color}
+                    indented={isSubCat}
                     onDragStart={onDragStart}
                   />
                 ))}
@@ -264,12 +307,16 @@ function PaletteItem({
   template,
   color,
   onDragStart,
+  indented = false,
 }: {
   template: NodeTemplate;
   color: string;
   onDragStart: (id: string) => void;
+  indented?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
+  const baseLeft = indented ? 28 : 20;
+  const hoverLeft = indented ? 32 : 24;
 
   return (
     <div
@@ -281,11 +328,11 @@ function PaletteItem({
         display: "flex",
         alignItems: "center",
         gap: "8px",
-        padding: "7px 14px 7px 20px",
+        padding: "7px 14px",
         cursor: "grab",
         background: hovered ? "rgba(255,255,255,0.04)" : "transparent",
         transition: "background 0.15s, padding-left 0.15s",
-        paddingLeft: hovered ? "24px" : "20px",
+        paddingLeft: hovered ? `${hoverLeft}px` : `${baseLeft}px`,
       }}
     >
       <div
