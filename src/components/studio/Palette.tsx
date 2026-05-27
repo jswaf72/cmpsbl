@@ -35,9 +35,10 @@ const GROUP_FIRST_CATEGORY: Record<string, string> = {
 interface PaletteProps {
   onDragStart: (templateId: string) => void;
   onNewNode: () => void;
+  hideBranding?: boolean;
 }
 
-export function Palette({ onDragStart, onNewNode }: PaletteProps) {
+export function Palette({ onDragStart, onNewNode, hideBranding = false }: PaletteProps) {
   const [search, setSearch] = useState("");
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(CATEGORIES.map((c) => [c, true]))
@@ -82,16 +83,17 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
   return (
     <div
       style={{
-        width: "240px",
+        width: hideBranding ? "100%" : "240px",
         height: "100%",
-        background: "#13161f",
-        borderRight: "1px solid #1f2535",
+        background: hideBranding ? "transparent" : "#13161f",
+        borderRight: hideBranding ? "none" : "1px solid #1f2535",
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Space Grotesk', sans-serif",
       }}
     >
       {/* Header */}
+      {!hideBranding && (
       <div
         style={{
           padding: "16px 14px 12px",
@@ -148,6 +150,45 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
           />
         </div>
       </div>
+      )}
+
+      {/* Search when hideBranding */}
+      {hideBranding && (
+        <div style={{ padding: "8px 14px 6px", borderBottom: "1px solid #1f2535" }}>
+          <div style={{ position: "relative" }}>
+            <Search
+              style={{
+                position: "absolute",
+                left: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: "14px",
+                height: "14px",
+                color: "#475569",
+              }}
+            />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search nodes…"
+              style={{
+                width: "100%",
+                background: "#0d0f14",
+                border: "1px solid #1f2535",
+                borderRadius: "6px",
+                padding: "7px 10px 7px 30px",
+                fontSize: "12px",
+                color: "#e2e8f0",
+                outline: "none",
+                fontFamily: "'Outfit', sans-serif",
+                boxSizing: "border-box",
+              }}
+              onFocus={(e) => { e.target.style.borderColor = "#3b82f6"; }}
+              onBlur={(e) => { e.target.style.borderColor = "#1f2535"; }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Node List */}
       <div
