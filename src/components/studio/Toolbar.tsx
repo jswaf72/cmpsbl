@@ -18,9 +18,12 @@ interface ToolbarProps {
   onSave: () => void;
   onExport: () => void;
   onAutoLayout: () => void;
+  projectName?: string;
+  saving?: boolean;
+  saveMsg?: string | null;
 }
 
-export function Toolbar({ onNew, onSave, onExport, onAutoLayout }: ToolbarProps) {
+export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, saving, saveMsg }: ToolbarProps) {
   const validationErrors = useStudioStore((s) => s.validationErrors);
   const { zoomIn, zoomOut, fitView } = useReactFlow();
 
@@ -95,9 +98,57 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout }: ToolbarProps)
       {/* Divider */}
       <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
 
+      {/* Project name */}
+      {projectName && (
+        <>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "4px 10px",
+              background: "rgba(59,130,246,0.07)",
+              border: "1px solid rgba(59,130,246,0.15)",
+              borderRadius: "6px",
+              maxWidth: "160px",
+            }}
+          >
+            <svg width="11" height="11" fill="none" stroke="#3b82f6" strokeWidth="1.8" viewBox="0 0 24 24">
+              <path d="M3 7a2 2 0 012-2h3l2 2h9a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+            </svg>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                color: "#7dd3fc",
+                fontFamily: "'Space Grotesk', sans-serif",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {projectName}
+            </span>
+          </div>
+          {saveMsg && (
+            <span
+              style={{
+                fontSize: "10px",
+                fontFamily: "'JetBrains Mono', monospace",
+                color: saveMsg === "Saved" ? "#22c55e" : "#ef4444",
+                letterSpacing: "0.04em",
+              }}
+            >
+              {saveMsg}
+            </span>
+          )}
+          <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
+        </>
+      )}
+
       {/* Action Buttons */}
       <ToolbarButton icon={<FilePlus size={14} />} label="New" onClick={onNew} />
-      <ToolbarButton icon={<Save size={14} />} label="Save" onClick={onSave} />
+      <ToolbarButton icon={<Save size={14} />} label={saving ? "Saving…" : "Save"} onClick={onSave} />
       <ToolbarButton icon={<Download size={14} />} label="Export" onClick={onExport} />
 
       <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
