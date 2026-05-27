@@ -124,6 +124,10 @@
     cursor: crosshair !important;
   }
 
+  .react-flow__panel.top {
+    top: 50%;
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
