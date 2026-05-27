@@ -271,11 +271,11 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
     ],
   },
 
-  // ─── Network / IO ──────────────────────────────────────────────
+  // ─── Network and IO ──────────────────────────────────────────────
   {
     id: "http-request",
     name: "HTTP Request",
-    category: "Network / IO",
+    category: "Network and IO",
     nodeType: "io",
     description: "Makes an HTTP request to a URL",
     inputs: [
@@ -292,7 +292,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "webhook-listener",
     name: "Webhook Listener",
-    category: "Network / IO",
+    category: "Network and IO",
     nodeType: "io",
     description: "Receives incoming webhook payloads",
     inputs: [],
@@ -304,7 +304,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "queue-producer",
     name: "Queue Producer",
-    category: "Network / IO",
+    category: "Network and IO",
     nodeType: "io",
     description: "Publishes messages to a queue",
     inputs: [
@@ -318,7 +318,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "queue-consumer",
     name: "Queue Consumer",
-    category: "Network / IO",
+    category: "Network and IO",
     nodeType: "io",
     description: "Consumes messages from a queue",
     inputs: [
@@ -332,7 +332,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "database-query",
     name: "Database Query",
-    category: "Network / IO",
+    category: "Network and IO",
     nodeType: "io",
     description: "Executes a SQL / NoSQL query",
     inputs: [
@@ -347,7 +347,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "stream-source",
     name: "Stream Source",
-    category: "Network / IO",
+    category: "Network and IO",
     nodeType: "io",
     description: "WebSocket / SSE continuous stream",
     inputs: [
@@ -540,11 +540,11 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
     ],
   },
 
-  // ─── AI / ML ───────────────────────────────────────────────────
+  // ─── and ML ───────────────────────────────────────────────────
   {
     id: "llm-prompt",
     name: "LLM Prompt",
-    category: "AI / ML",
+    category: "AI and ML",
     nodeType: "ai",
     description: "Calls a language model with a prompt",
     inputs: [
@@ -559,7 +559,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "embedder",
     name: "Embedder",
-    category: "AI / ML",
+    category: "AI and ML",
     nodeType: "ai",
     description: "Generates vector embeddings from text",
     inputs: [
@@ -572,7 +572,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "vector-search",
     name: "Vector Search",
-    category: "AI / ML",
+    category: "AI and ML",
     nodeType: "ai",
     description: "Similarity search over vector store",
     inputs: [
@@ -587,7 +587,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "classifier",
     name: "Classifier",
-    category: "AI / ML",
+    category: "AI and ML",
     nodeType: "ai",
     description: "Classifies input into labeled categories",
     inputs: [
@@ -602,7 +602,7 @@ export const NODE_TEMPLATES: NodeTemplate[] = [
   {
     id: "rag-pipeline",
     name: "RAG Pipeline",
-    category: "AI / ML",
+    category: "AI and ML",
     nodeType: "ai",
     description: "Retrieval-augmented generation",
     inputs: [
@@ -1488,10 +1488,10 @@ export const CATEGORY_COLORS: Record<string, string> = {
   Logic: "#a78bfa",
   Data: "#22d3ee",
   State: "#fb7185",
-  "Network / IO": "#06b6d4",
+  "Network and IO": "#06b6d4",
   Process: "#e879f9",
   Infrastructure: "#fb923c",
-  "AI / ML": "#a3e635",
+  "AI and ML": "#a3e635",
   Music: "#f472b6",
   Aggregations: "#38bdf8",
   Monitoring: "#818cf8",
