@@ -12,6 +12,13 @@ const CATEGORIES: NodeCategory[] = [
   "Logic",
   "Data",
   "State",
+  "Network / IO",
+  "Process",
+  "Infrastructure",
+  "AI / ML",
+  "Music",
+  "Aggregations",
+  "Monitoring",
 ];
 
 interface PaletteProps {
@@ -21,7 +28,9 @@ interface PaletteProps {
 
 export function Palette({ onDragStart, onNewNode }: PaletteProps) {
   const [search, setSearch] = useState("");
-  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(CATEGORIES.map((c) => [c, true]))
+  );
   const customTemplates = useStudioStore((s) => s.customTemplates);
 
   const allTemplates = useMemo(
@@ -39,6 +48,12 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
         t.nodeType.toLowerCase().includes(q)
     );
   }, [search, allTemplates]);
+
+  // When searching, show all matched categories expanded
+  const effectiveCollapsed = useMemo(() => {
+    if (search.trim()) return {};
+    return collapsed;
+  }, [search, collapsed]);
 
   const byCategory = useMemo(() => {
     const map: Record<string, NodeTemplate[]> = {};
@@ -133,7 +148,7 @@ export function Palette({ onDragStart, onNewNode }: PaletteProps) {
       >
         {Object.entries(byCategory).map(([category, templates]) => {
           const color = CATEGORY_COLORS[category] || "#3b82f6";
-          const isCollapsed = collapsed[category];
+          const isCollapsed = effectiveCollapsed[category];
           return (
             <div key={category}>
               <button
