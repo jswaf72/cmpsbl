@@ -123,8 +123,8 @@ export function ProjectsSidebar({
         style={{
           width: "240px",
           height: "100%",
-          background: "#13161f",
-          borderRight: "1px solid #1f2535",
+          background: "var(--studio-surface)",
+          borderRight: "1px solid var(--studio-border)",
           display: "flex",
           flexDirection: "column",
           fontFamily: "'Space Grotesk', sans-serif",
@@ -134,7 +134,7 @@ export function ProjectsSidebar({
         <div
           style={{
             padding: "10px 14px 8px",
-            borderBottom: "1px solid #1f2535",
+            borderBottom: "1px solid var(--studio-border)",
             flexShrink: 0,
           }}
         >
@@ -147,7 +147,7 @@ export function ProjectsSidebar({
               background: "transparent",
               border: "none",
               cursor: "pointer",
-              color: "#475569",
+              color: "var(--studio-text-faint)",
               fontSize: "11px",
               fontFamily: "'JetBrains Mono', monospace",
               padding: "0 0 6px",
@@ -155,10 +155,10 @@ export function ProjectsSidebar({
               transition: "color 0.15s",
             }}
             onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.color = "#94a3b8")
+              ((e.currentTarget as HTMLButtonElement).style.color = "var(--studio-text-muted)")
             }
             onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.color = "#475569")
+              ((e.currentTarget as HTMLButtonElement).style.color = "var(--studio-text-faint)")
             }
           >
             <ChevronLeft style={{ width: "12px", height: "12px" }} />
@@ -173,13 +173,13 @@ export function ProjectsSidebar({
             }}
           >
             <FolderOpen
-              style={{ width: "14px", height: "14px", color: "#3b82f6", flexShrink: 0 }}
+              style={{ width: "14px", height: "14px", color: "var(--studio-accent)", flexShrink: 0 }}
             />
             <span
               style={{
                 fontSize: "13px",
                 fontWeight: 700,
-                color: "#e2e8f0",
+                color: "var(--studio-text)",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -204,8 +204,8 @@ export function ProjectsSidebar({
       style={{
         width: "240px",
         height: "100%",
-        background: "#13161f",
-        borderRight: "1px solid #1f2535",
+        background: "var(--studio-surface)",
+        borderRight: "1px solid var(--studio-border)",
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Space Grotesk', sans-serif",
@@ -215,7 +215,7 @@ export function ProjectsSidebar({
       <div
         style={{
           padding: "16px 14px 12px",
-          borderBottom: "1px solid #1f2535",
+          borderBottom: "1px solid var(--studio-border)",
           flexShrink: 0,
         }}
       >
@@ -231,7 +231,7 @@ export function ProjectsSidebar({
             style={{
               fontSize: "11px",
               fontWeight: 700,
-              color: "#3b82f6",
+              color: "var(--studio-accent)",
               letterSpacing: "0.1em",
               textTransform: "uppercase",
               fontFamily: "'JetBrains Mono', monospace",
@@ -251,7 +251,7 @@ export function ProjectsSidebar({
               border: "1px solid rgba(59,130,246,0.25)",
               borderRadius: "5px",
               cursor: "pointer",
-              color: "#3b82f6",
+              color: "var(--studio-accent)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -274,7 +274,7 @@ export function ProjectsSidebar({
         <div
           style={{
             fontSize: "11px",
-            color: "#475569",
+            color: "var(--studio-text-faint)",
             fontFamily: "'Outfit', sans-serif",
           }}
         >
@@ -287,7 +287,7 @@ export function ProjectsSidebar({
         <div
           style={{
             padding: "12px 14px",
-            borderBottom: "1px solid #1f2535",
+            borderBottom: "1px solid var(--studio-border)",
             background: "rgba(59,130,246,0.05)",
             flexShrink: 0,
           }}
@@ -296,7 +296,7 @@ export function ProjectsSidebar({
             style={{
               fontSize: "11px",
               fontWeight: 700,
-              color: "#3b82f6",
+              color: "var(--studio-accent)",
               fontFamily: "'JetBrains Mono', monospace",
               letterSpacing: "0.08em",
               marginBottom: "8px",
@@ -316,19 +316,19 @@ export function ProjectsSidebar({
             placeholder="Project name…"
             style={{
               width: "100%",
-              background: "#0d0f14",
-              border: "1px solid #1f2535",
+              background: "var(--studio-bg)",
+              border: "1px solid var(--studio-border)",
               borderRadius: "5px",
               padding: "6px 10px",
               fontSize: "12px",
-              color: "#e2e8f0",
+              color: "var(--studio-text)",
               outline: "none",
               fontFamily: "'Outfit', sans-serif",
               boxSizing: "border-box",
               marginBottom: "6px",
             }}
-            onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-            onBlur={(e) => (e.target.style.borderColor = "#1f2535")}
+            onFocus={(e) => (e.target.style.borderColor = "var(--studio-accent)")}
+            onBlur={(e) => (e.target.style.borderColor = "var(--studio-border)")}
           />
           <input
             value={newDesc}
@@ -336,19 +336,19 @@ export function ProjectsSidebar({
             placeholder="Description (optional)…"
             style={{
               width: "100%",
-              background: "#0d0f14",
-              border: "1px solid #1f2535",
+              background: "var(--studio-bg)",
+              border: "1px solid var(--studio-border)",
               borderRadius: "5px",
               padding: "6px 10px",
               fontSize: "11px",
-              color: "#94a3b8",
+              color: "var(--studio-text-muted)",
               outline: "none",
               fontFamily: "'Outfit', sans-serif",
               boxSizing: "border-box",
               marginBottom: "8px",
             }}
-            onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-            onBlur={(e) => (e.target.style.borderColor = "#1f2535")}
+            onFocus={(e) => (e.target.style.borderColor = "var(--studio-accent)")}
+            onBlur={(e) => (e.target.style.borderColor = "var(--studio-border)")}
           />
           <div style={{ display: "flex", gap: "6px" }}>
             <button
@@ -364,7 +364,7 @@ export function ProjectsSidebar({
                 background: "rgba(59,130,246,0.18)",
                 border: "1px solid rgba(59,130,246,0.35)",
                 borderRadius: "5px",
-                color: "#3b82f6",
+                color: "var(--studio-accent)",
                 fontSize: "11px",
                 fontWeight: 600,
                 cursor: savingNew || !newName.trim() ? "not-allowed" : "pointer",
@@ -386,9 +386,9 @@ export function ProjectsSidebar({
               style={{
                 padding: "6px 10px",
                 background: "transparent",
-                border: "1px solid #1f2535",
+                border: "1px solid var(--studio-border)",
                 borderRadius: "5px",
-                color: "#475569",
+                color: "var(--studio-text-faint)",
                 fontSize: "11px",
                 cursor: "pointer",
               }}
@@ -406,7 +406,7 @@ export function ProjectsSidebar({
             padding: "8px 14px",
             background: "rgba(239,68,68,0.08)",
             borderBottom: "1px solid rgba(239,68,68,0.2)",
-            color: "#ef4444",
+            color: "var(--studio-error)",
             fontSize: "11px",
             fontFamily: "'Outfit', sans-serif",
             flexShrink: 0,
@@ -426,7 +426,7 @@ export function ProjectsSidebar({
               justifyContent: "center",
               gap: "8px",
               padding: "24px",
-              color: "#475569",
+              color: "var(--studio-text-faint)",
               fontSize: "12px",
               fontFamily: "'Outfit', sans-serif",
             }}
@@ -443,7 +443,7 @@ export function ProjectsSidebar({
             style={{
               padding: "32px 16px",
               textAlign: "center",
-              color: "#334155",
+              color: "var(--studio-faint)",
               fontFamily: "'Outfit', sans-serif",
             }}
           >
@@ -451,15 +451,15 @@ export function ProjectsSidebar({
               style={{
                 width: "32px",
                 height: "32px",
-                color: "#1e2535",
+                color: "var(--studio-border)",
                 margin: "0 auto 12px",
                 display: "block",
               }}
             />
-            <div style={{ fontSize: "13px", fontWeight: 600, color: "#475569", marginBottom: "4px" }}>
+            <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--studio-text-faint)", marginBottom: "4px" }}>
               No projects yet
             </div>
-            <div style={{ fontSize: "11px", color: "#334155" }}>
+            <div style={{ fontSize: "11px", color: "var(--studio-faint)" }}>
               Click + to create your first project
             </div>
           </div>
@@ -484,7 +484,7 @@ export function ProjectsSidebar({
                     : isHovered
                     ? "rgba(255,255,255,0.03)"
                     : "transparent",
-                  borderLeft: isActive ? "2px solid #3b82f6" : "2px solid transparent",
+                  borderLeft: isActive ? "2px solid var(--studio-accent)" : "2px solid transparent",
                   transition: "background 0.15s",
                 }}
               >
@@ -500,12 +500,12 @@ export function ProjectsSidebar({
                       }}
                       style={{
                         flex: 1,
-                        background: "#0d0f14",
-                        border: "1px solid #3b82f6",
+                        background: "var(--studio-bg)",
+                        border: "1px solid var(--studio-accent)",
                         borderRadius: "4px",
                         padding: "4px 8px",
                         fontSize: "12px",
-                        color: "#e2e8f0",
+                        color: "var(--studio-text)",
                         outline: "none",
                         fontFamily: "'Outfit', sans-serif",
                       }}
@@ -517,7 +517,7 @@ export function ProjectsSidebar({
                         border: "none",
                         borderRadius: "4px",
                         cursor: "pointer",
-                        color: "#3b82f6",
+                        color: "var(--studio-accent)",
                         padding: "4px",
                       }}
                     >
@@ -529,7 +529,7 @@ export function ProjectsSidebar({
                         background: "transparent",
                         border: "none",
                         cursor: "pointer",
-                        color: "#475569",
+                        color: "var(--studio-text-faint)",
                         padding: "4px",
                       }}
                     >
@@ -558,7 +558,7 @@ export function ProjectsSidebar({
                       style={{
                         width: "14px",
                         height: "14px",
-                        color: isActive ? "#3b82f6" : "#334155",
+                        color: isActive ? "var(--studio-accent)" : "var(--studio-faint)",
                         flexShrink: 0,
                         transition: "color 0.15s",
                       }}
@@ -568,7 +568,7 @@ export function ProjectsSidebar({
                         style={{
                           fontSize: "12px",
                           fontWeight: 600,
-                          color: isActive ? "#e2e8f0" : isHovered ? "#cbd5e1" : "#94a3b8",
+                          color: isActive ? "var(--studio-text)" : isHovered ? "var(--studio-text)" : "var(--studio-text-muted)",
                           whiteSpace: "nowrap",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
@@ -581,7 +581,7 @@ export function ProjectsSidebar({
                         <div
                           style={{
                             fontSize: "10px",
-                            color: "#334155",
+                            color: "var(--studio-faint)",
                             fontFamily: "'Outfit', sans-serif",
                             whiteSpace: "nowrap",
                             overflow: "hidden",
@@ -595,7 +595,7 @@ export function ProjectsSidebar({
                       <div
                         style={{
                           fontSize: "9px",
-                          color: "#1e2535",
+                          color: "var(--studio-border)",
                           fontFamily: "'JetBrains Mono', monospace",
                           marginTop: "2px",
                         }}
@@ -607,7 +607,7 @@ export function ProjectsSidebar({
                       style={{
                         width: "12px",
                         height: "12px",
-                        color: isHovered || isActive ? "#475569" : "#1e2535",
+                        color: isHovered || isActive ? "var(--studio-text-faint)" : "var(--studio-border)",
                         flexShrink: 0,
                         transition: "color 0.15s",
                       }}
@@ -635,20 +635,20 @@ export function ProjectsSidebar({
                       }}
                       title="Rename"
                       style={{
-                        background: "rgba(255,255,255,0.06)",
+                        background: "var(--studio-hover)",
                         border: "none",
                         borderRadius: "4px",
                         cursor: "pointer",
-                        color: "#475569",
+                        color: "var(--studio-text-faint)",
                         padding: "4px",
                         display: "flex",
                         alignItems: "center",
                       }}
                       onMouseEnter={(e) =>
-                        ((e.currentTarget as HTMLButtonElement).style.color = "#94a3b8")
+                        ((e.currentTarget as HTMLButtonElement).style.color = "var(--studio-text-muted)")
                       }
                       onMouseLeave={(e) =>
-                        ((e.currentTarget as HTMLButtonElement).style.color = "#475569")
+                        ((e.currentTarget as HTMLButtonElement).style.color = "var(--studio-text-faint)")
                       }
                     >
                       <Edit2 style={{ width: "11px", height: "11px" }} />
@@ -665,7 +665,7 @@ export function ProjectsSidebar({
                         border: "none",
                         borderRadius: "4px",
                         cursor: isDeleting ? "not-allowed" : "pointer",
-                        color: "#ef4444",
+                        color: "var(--studio-error)",
                         padding: "4px",
                         display: "flex",
                         alignItems: "center",
@@ -689,7 +689,7 @@ export function ProjectsSidebar({
       <div
         style={{
           padding: "12px 14px",
-          borderTop: "1px solid #1f2535",
+          borderTop: "1px solid var(--studio-border)",
           flexShrink: 0,
         }}
       >
@@ -709,7 +709,7 @@ export function ProjectsSidebar({
             background: "rgba(59,130,246,0.08)",
             border: "1px solid rgba(59,130,246,0.2)",
             borderRadius: "6px",
-            color: "#3b82f6",
+            color: "var(--studio-accent)",
             fontSize: "12px",
             fontWeight: 600,
             cursor: "pointer",

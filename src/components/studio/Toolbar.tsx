@@ -9,9 +9,13 @@ import {
   Maximize2,
   AlertTriangle,
   CheckCircle2,
+  Sun,
+  Moon,
+  Printer,
 } from "lucide-react";
 import { useStudioStore } from "./store";
 import { useReactFlow } from "@xyflow/react";
+import { ThemeMode, THEME_ORDER, Lens, LENS_ORDER, LENSES } from "./theme";
 
 interface ToolbarProps {
   onNew: () => void;
@@ -25,14 +29,18 @@ interface ToolbarProps {
 
 export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, saving, saveMsg }: ToolbarProps) {
   const validationErrors = useStudioStore((s) => s.validationErrors);
+  const themeMode = useStudioStore((s) => s.themeMode);
+  const setThemeMode = useStudioStore((s) => s.setThemeMode);
+  const activeLens = useStudioStore((s) => s.activeLens);
+  const setActiveLens = useStudioStore((s) => s.setActiveLens);
   const { zoomIn, zoomOut, fitView } = useReactFlow();
 
   return (
     <div
       style={{
         height: "52px",
-        background: "#13161f",
-        borderBottom: "1px solid #1f2535",
+        background: "var(--studio-surface)",
+        borderBottom: "1px solid var(--studio-border)",
         display: "flex",
         alignItems: "center",
         padding: "0 16px",
@@ -41,62 +49,32 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
         backdropFilter: "blur(8px)",
       }}
     >
-      {/* Logo */}
+      {/* Wordmark */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "8px",
           marginRight: "12px",
         }}
       >
-        <div
+        <span
           style={{
-            width: "28px",
-            height: "28px",
-            borderRadius: "6px",
-            background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            fontSize: "30px",
+            fontWeight: 700,
+            color: "var(--studio-text)",
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            fontFamily: "'Archivo Narrow', sans-serif",
+            lineHeight: 1,
+            userSelect: "none",
           }}
         >
-          <svg width="16" height="16" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
-            <circle cx="6" cy="12" r="3" />
-            <circle cx="18" cy="6" r="3" />
-            <circle cx="18" cy="18" r="3" />
-            <path d="M9 12h6M15 7.5L9 12M15 16.5L9 12" />
-          </svg>
-        </div>
-        <div>
-          <div
-            style={{
-              fontSize: "13px",
-              fontWeight: 800,
-              color: "#e2e8f0",
-              letterSpacing: "0.01em",
-              fontFamily: "'Space Grotesk', sans-serif",
-              lineHeight: 1,
-            }}
-          >
-            Composable Systems
-          </div>
-          <div
-            style={{
-              fontSize: "9px",
-              color: "#3b82f6",
-              fontFamily: "'JetBrains Mono', monospace",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
-            Studio
-          </div>
-        </div>
+          CMPSBL
+        </span>
       </div>
 
       {/* Divider */}
-      <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
+      <div style={{ width: "1px", height: "24px", background: "var(--studio-border)" }} />
 
       {/* Project name */}
       {projectName && (
@@ -113,14 +91,14 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
               maxWidth: "160px",
             }}
           >
-            <svg width="11" height="11" fill="none" stroke="#3b82f6" strokeWidth="1.8" viewBox="0 0 24 24">
+            <svg width="11" height="11" fill="none" stroke="var(--studio-accent)" strokeWidth="1.8" viewBox="0 0 24 24">
               <path d="M3 7a2 2 0 012-2h3l2 2h9a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
             </svg>
             <span
               style={{
                 fontSize: "11px",
                 fontWeight: 600,
-                color: "#7dd3fc",
+                color: "var(--studio-accent-soft)",
                 fontFamily: "'Space Grotesk', sans-serif",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
@@ -135,14 +113,14 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
               style={{
                 fontSize: "10px",
                 fontFamily: "'JetBrains Mono', monospace",
-                color: saveMsg === "Saved" ? "#22c55e" : "#ef4444",
+                color: saveMsg === "Saved" ? "var(--studio-success)" : "var(--studio-error)",
                 letterSpacing: "0.04em",
               }}
             >
               {saveMsg}
             </span>
           )}
-          <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
+          <div style={{ width: "1px", height: "24px", background: "var(--studio-border)" }} />
         </>
       )}
 
@@ -151,7 +129,7 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
       <ToolbarButton icon={<Save size={14} />} label={saving ? "Saving…" : "Save"} onClick={onSave} />
       <ToolbarButton icon={<Download size={14} />} label="Export" onClick={onExport} />
 
-      <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
+      <div style={{ width: "1px", height: "24px", background: "var(--studio-border)" }} />
 
       <ToolbarButton
         icon={<LayoutDashboard size={14} />}
@@ -162,14 +140,22 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
 
       <div style={{ flex: 1 }} />
 
+      {/* Lens selector */}
+      <LensSelect value={activeLens} onChange={setActiveLens} />
+
+      {/* Theme switch */}
+      <ThemeSwitch value={themeMode} onChange={setThemeMode} />
+
+      <div style={{ width: "1px", height: "24px", background: "var(--studio-border)" }} />
+
       {/* Zoom Controls */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
           gap: "2px",
-          background: "#0d0f14",
-          border: "1px solid #1f2535",
+          background: "var(--studio-bg)",
+          border: "1px solid var(--studio-border)",
           borderRadius: "7px",
           padding: "3px",
         }}
@@ -179,7 +165,7 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
         <ZoomButton icon={<Maximize2 size={13} />} onClick={() => fitView()} title="Fit view" />
       </div>
 
-      <div style={{ width: "1px", height: "24px", background: "#1f2535" }} />
+      <div style={{ width: "1px", height: "24px", background: "var(--studio-border)" }} />
 
       {/* Validation Status */}
       <div
@@ -203,13 +189,13 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
         {validationErrors > 0 ? (
           <>
             <AlertTriangle
-              style={{ width: "13px", height: "13px", color: "#ef4444" }}
+              style={{ width: "13px", height: "13px", color: "var(--studio-error)" }}
             />
             <span
               style={{
                 fontSize: "11px",
                 fontWeight: 700,
-                color: "#ef4444",
+                color: "var(--studio-error)",
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
@@ -219,13 +205,13 @@ export function Toolbar({ onNew, onSave, onExport, onAutoLayout, projectName, sa
         ) : (
           <>
             <CheckCircle2
-              style={{ width: "13px", height: "13px", color: "#22c55e" }}
+              style={{ width: "13px", height: "13px", color: "var(--studio-success)" }}
             />
             <span
               style={{
                 fontSize: "11px",
                 fontWeight: 700,
-                color: "#22c55e",
+                color: "var(--studio-success)",
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
@@ -263,14 +249,14 @@ function ToolbarButton({
         background: hovered
           ? accent
             ? "rgba(59,130,246,0.2)"
-            : "rgba(255,255,255,0.06)"
+            : "var(--studio-hover)"
           : accent
           ? "rgba(59,130,246,0.1)"
           : "transparent",
         border: accent ? "1px solid rgba(59,130,246,0.3)" : "1px solid transparent",
         borderRadius: "6px",
         cursor: "pointer",
-        color: accent ? "#3b82f6" : "#94a3b8",
+        color: accent ? "var(--studio-accent)" : "var(--studio-text-muted)",
         fontSize: "12px",
         fontFamily: "'Space Grotesk', sans-serif",
         fontWeight: 500,
@@ -306,15 +292,106 @@ function ZoomButton({
         justifyContent: "center",
         width: "26px",
         height: "26px",
-        background: hovered ? "rgba(255,255,255,0.07)" : "transparent",
+        background: hovered ? "var(--studio-hover)" : "transparent",
         border: "none",
         borderRadius: "5px",
         cursor: "pointer",
-        color: hovered ? "#94a3b8" : "#475569",
+        color: hovered ? "var(--studio-text-muted)" : "var(--studio-text-faint)",
         transition: "all 0.15s",
       }}
     >
       {icon}
     </button>
+  );
+}
+
+const THEME_ICONS: Record<ThemeMode, React.ReactNode> = {
+  dark: <Moon size={13} />,
+  light: <Sun size={13} />,
+  print: <Printer size={13} />,
+};
+
+function ThemeSwitch({
+  value,
+  onChange,
+}: {
+  value: ThemeMode;
+  onChange: (m: ThemeMode) => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "2px",
+        background: "var(--studio-bg)",
+        border: "1px solid var(--studio-border)",
+        borderRadius: "7px",
+        padding: "3px",
+      }}
+    >
+      {THEME_ORDER.map((mode) => {
+        const active = mode === value;
+        return (
+          <button
+            key={mode}
+            onClick={() => onChange(mode)}
+            title={`${mode[0].toUpperCase()}${mode.slice(1)} theme`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "26px",
+              height: "26px",
+              background: active ? "rgba(59,130,246,0.18)" : "transparent",
+              border: active
+                ? "1px solid rgba(59,130,246,0.35)"
+                : "1px solid transparent",
+              borderRadius: "5px",
+              cursor: "pointer",
+              color: active ? "var(--studio-accent)" : "var(--studio-text-faint)",
+              transition: "all 0.15s",
+            }}
+          >
+            {THEME_ICONS[mode]}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function LensSelect({
+  value,
+  onChange,
+}: {
+  value: Lens;
+  onChange: (l: Lens) => void;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value as Lens)}
+      title={LENSES[value].description}
+      style={{
+        height: "30px",
+        background: "var(--studio-bg)",
+        color: "var(--studio-text-muted)",
+        border: "1px solid var(--studio-border)",
+        borderRadius: "7px",
+        padding: "0 8px",
+        fontSize: "11px",
+        fontFamily: "'JetBrains Mono', monospace",
+        letterSpacing: "0.04em",
+        cursor: "pointer",
+        outline: "none",
+      }}
+    >
+      {LENS_ORDER.map((lens) => (
+        <option key={lens} value={lens}>
+          {`Lens: ${LENSES[lens].label}`}
+        </option>
+      ))}
+    </select>
   );
 }

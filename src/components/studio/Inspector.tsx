@@ -169,15 +169,15 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
     onClose();
   };
 
-  const categoryColor = CATEGORY_COLORS[data.category] || "#3b82f6";
+  const categoryColor = CATEGORY_COLORS[data.category] || "var(--studio-accent)";
 
   return (
     <div
       style={{
         width: "300px",
         height: "100%",
-        background: "#13161f",
-        borderLeft: "1px solid #1f2535",
+        background: "var(--studio-surface)",
+        borderLeft: "1px solid var(--studio-border)",
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Outfit', sans-serif",
@@ -188,7 +188,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
       <div
         style={{
           padding: "14px 16px 12px",
-          borderBottom: "1px solid #1f2535",
+          borderBottom: "1px solid var(--studio-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -200,7 +200,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
             style={{
               fontSize: "11px",
               fontWeight: 700,
-              color: "#3b82f6",
+              color: "var(--studio-accent)",
               letterSpacing: "0.1em",
               textTransform: "uppercase",
               fontFamily: "'JetBrains Mono', monospace",
@@ -209,7 +209,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
           >
             Inspector
           </div>
-          <div style={{ fontSize: "14px", fontWeight: 700, color: "#e2e8f0" }}>
+          <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--studio-text)" }}>
             {data.label}
           </div>
         </div>
@@ -222,7 +222,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
               borderRadius: "6px",
               padding: "5px",
               cursor: "pointer",
-              color: "#ef4444",
+              color: "var(--studio-error)",
               display: "flex",
               alignItems: "center",
             }}
@@ -234,11 +234,11 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
             onClick={onClose}
             style={{
               background: "rgba(255,255,255,0.05)",
-              border: "1px solid #1f2535",
+              border: "1px solid var(--studio-border)",
               borderRadius: "6px",
               padding: "5px",
               cursor: "pointer",
-              color: "#64748b",
+              color: "var(--studio-text-dim)",
               display: "flex",
               alignItems: "center",
             }}
@@ -316,15 +316,15 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
                   display: "flex",
                   alignItems: "center",
                   gap: "6px",
-                  background: "#0d0f14",
+                  background: "var(--studio-bg)",
                   borderRadius: "4px",
                   padding: "5px 8px",
-                  border: "1px solid #1f2535",
+                  border: "1px solid var(--studio-border)",
                 }}
               >
                 <span
                   style={{
-                    color: "#3b82f6",
+                    color: "var(--studio-accent)",
                     fontSize: "11px",
                     fontFamily: "'JetBrains Mono', monospace",
                     flex: 1,
@@ -334,7 +334,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
                 </span>
                 <span
                   style={{
-                    color: "#94a3b8",
+                    color: "var(--studio-text-muted)",
                     fontSize: "11px",
                     fontFamily: "'JetBrains Mono', monospace",
                     flex: 1,
@@ -348,7 +348,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    color: "#475569",
+                    color: "var(--studio-text-faint)",
                     padding: "0",
                     display: "flex",
                   }}
@@ -378,7 +378,7 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
                 border: "1px solid rgba(59,130,246,0.3)",
                 borderRadius: "5px",
                 padding: "5px 8px",
-                color: "#3b82f6",
+                color: "var(--studio-accent)",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
@@ -393,10 +393,10 @@ export function Inspector({ isNewNodeMode, onNewNodeSave, onClose }: InspectorPr
         <div
           style={{
             fontSize: "10px",
-            color: "#334155",
+            color: "var(--studio-faint)",
             fontFamily: "'JetBrains Mono', monospace",
             paddingTop: "4px",
-            borderTop: "1px solid #1f2535",
+            borderTop: "1px solid var(--studio-border)",
           }}
         >
           id: {id}
@@ -412,8 +412,8 @@ function EmptyInspector({ onClose }: { onClose: () => void }) {
       style={{
         width: "300px",
         height: "100%",
-        background: "#13161f",
-        borderLeft: "1px solid #1f2535",
+        background: "var(--studio-surface)",
+        borderLeft: "1px solid var(--studio-border)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -434,14 +434,14 @@ function EmptyInspector({ onClose }: { onClose: () => void }) {
           marginBottom: "12px",
         }}
       >
-        <svg width="22" height="22" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
+        <svg width="22" height="22" fill="none" stroke="var(--studio-accent)" strokeWidth="1.5" viewBox="0 0 24 24">
           <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
         </svg>
       </div>
-      <div style={{ color: "#64748b", fontSize: "13px", textAlign: "center" }}>
+      <div style={{ color: "var(--studio-text-dim)", fontSize: "13px", textAlign: "center" }}>
         Select a node to inspect
       </div>
-      <div style={{ color: "#334155", fontSize: "11px", marginTop: "4px", textAlign: "center" }}>
+      <div style={{ color: "var(--studio-faint)", fontSize: "11px", marginTop: "4px", textAlign: "center" }}>
         Click any node on the canvas
       </div>
     </div>
@@ -486,8 +486,8 @@ function NewNodeForm({
       style={{
         width: "300px",
         height: "100%",
-        background: "#13161f",
-        borderLeft: "1px solid #1f2535",
+        background: "var(--studio-surface)",
+        borderLeft: "1px solid var(--studio-border)",
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Outfit', sans-serif",
@@ -497,17 +497,17 @@ function NewNodeForm({
       <div
         style={{
           padding: "14px 16px 12px",
-          borderBottom: "1px solid #1f2535",
+          borderBottom: "1px solid var(--studio-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
         <div>
-          <div style={{ fontSize: "11px", fontWeight: 700, color: "#34d399", letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "'JetBrains Mono', monospace" }}>
+          <div style={{ fontSize: "11px", fontWeight: 700, color: "var(--studio-success)", letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "'JetBrains Mono', monospace" }}>
             New Node Type
           </div>
-          <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "1px" }}>
+          <div style={{ fontSize: "13px", color: "var(--studio-text-muted)", marginTop: "1px" }}>
             Define a custom node
           </div>
         </div>
@@ -515,11 +515,11 @@ function NewNodeForm({
           onClick={onClose}
           style={{
             background: "rgba(255,255,255,0.05)",
-            border: "1px solid #1f2535",
+            border: "1px solid var(--studio-border)",
             borderRadius: "6px",
             padding: "5px",
             cursor: "pointer",
-            color: "#64748b",
+            color: "var(--studio-text-dim)",
             display: "flex",
           }}
         >
@@ -563,7 +563,7 @@ function NewNodeForm({
             background: "rgba(52,211,153,0.15)",
             border: "1px solid rgba(52,211,153,0.4)",
             borderRadius: "6px",
-            color: "#34d399",
+            color: "var(--studio-success)",
             fontSize: "13px",
             fontWeight: 700,
             cursor: "pointer",
@@ -610,7 +610,7 @@ function PortSection({
             border: "1px solid rgba(59,130,246,0.25)",
             borderRadius: "4px",
             padding: "2px 6px",
-            color: "#3b82f6",
+            color: "var(--studio-accent)",
             fontSize: "10px",
             cursor: "pointer",
             display: "flex",
@@ -632,7 +632,7 @@ function PortSection({
           />
         ))}
         {ports.length === 0 && (
-          <div style={{ color: "#334155", fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", padding: "4px 0" }}>
+          <div style={{ color: "var(--studio-faint)", fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", padding: "4px 0" }}>
             No ports defined
           </div>
         )}
@@ -655,7 +655,7 @@ function PortEditor({
   return (
     <div
       style={{
-        background: "#0d0f14",
+        background: "var(--studio-bg)",
         border: `1px solid ${color}28`,
         borderRadius: "6px",
         padding: "8px",
@@ -686,7 +686,7 @@ function PortEditor({
             background: "none",
             border: "none",
             cursor: "pointer",
-            color: "#475569",
+            color: "var(--studio-text-faint)",
             padding: "2px",
             display: "flex",
           }}
@@ -696,7 +696,7 @@ function PortEditor({
       </div>
       <div style={{ display: "flex", gap: "6px" }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "9px", color: "#475569", marginBottom: "3px", fontFamily: "'JetBrains Mono', monospace" }}>TYPE</div>
+          <div style={{ fontSize: "9px", color: "var(--studio-text-faint)", marginBottom: "3px", fontFamily: "'JetBrains Mono', monospace" }}>TYPE</div>
           <select
             value={port.dataType}
             onChange={(e) => onUpdate("dataType", e.target.value)}
@@ -710,7 +710,7 @@ function PortEditor({
           </select>
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "9px", color: "#475569", marginBottom: "3px", fontFamily: "'JetBrains Mono', monospace" }}>CARD.</div>
+          <div style={{ fontSize: "9px", color: "var(--studio-text-faint)", marginBottom: "3px", fontFamily: "'JetBrains Mono', monospace" }}>CARD.</div>
           <select
             value={port.cardinality}
             onChange={(e) => onUpdate("cardinality", e.target.value)}
@@ -735,11 +735,11 @@ function PortEditor({
           }}
         >
           {port.required ? (
-            <ToggleRight style={{ width: "18px", height: "18px", color: "#3b82f6" }} />
+            <ToggleRight style={{ width: "18px", height: "18px", color: "var(--studio-accent)" }} />
           ) : (
-            <ToggleLeft style={{ width: "18px", height: "18px", color: "#334155" }} />
+            <ToggleLeft style={{ width: "18px", height: "18px", color: "var(--studio-faint)" }} />
           )}
-          <span style={{ fontSize: "10px", color: port.required ? "#3b82f6" : "#475569", fontFamily: "'JetBrains Mono', monospace" }}>
+          <span style={{ fontSize: "10px", color: port.required ? "var(--studio-accent)" : "var(--studio-text-faint)", fontFamily: "'JetBrains Mono', monospace" }}>
             Required
           </span>
         </button>
@@ -749,12 +749,12 @@ function PortEditor({
 }
 
 const inputStyle: React.CSSProperties = {
-  background: "#131621",
-  border: "1px solid #1f2535",
+  background: "var(--studio-surface)",
+  border: "1px solid var(--studio-border)",
   borderRadius: "5px",
   padding: "6px 10px",
   fontSize: "12px",
-  color: "#e2e8f0",
+  color: "var(--studio-text)",
   outline: "none",
   fontFamily: "'Outfit', sans-serif",
   width: "100%",
@@ -763,12 +763,12 @@ const inputStyle: React.CSSProperties = {
 };
 
 const selectStyle: React.CSSProperties = {
-  background: "#131621",
-  border: "1px solid #1f2535",
+  background: "var(--studio-surface)",
+  border: "1px solid var(--studio-border)",
   borderRadius: "5px",
   padding: "5px 8px",
   fontSize: "11px",
-  color: "#e2e8f0",
+  color: "var(--studio-text)",
   outline: "none",
   fontFamily: "'JetBrains Mono', monospace",
   cursor: "pointer",
@@ -782,7 +782,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
         style={{
           fontSize: "10px",
           fontWeight: 600,
-          color: "#475569",
+          color: "var(--studio-text-faint)",
           letterSpacing: "0.07em",
           textTransform: "uppercase",
           marginBottom: "5px",
@@ -802,7 +802,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
       style={{
         fontSize: "10px",
         fontWeight: 700,
-        color: "#64748b",
+        color: "var(--studio-text-dim)",
         letterSpacing: "0.08em",
         textTransform: "uppercase",
         fontFamily: "'JetBrains Mono', monospace",

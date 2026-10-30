@@ -11,6 +11,7 @@ import {
 } from "@xyflow/react";
 import { StudioNodeData, PortDef, DataType, NodeCategory } from "./types";
 import { NODE_TEMPLATES } from "./nodeTemplates";
+import { ThemeMode, Lens } from "./theme";
 
 export type StudioNode = Node<StudioNodeData>;
 export type StudioEdge = Edge;
@@ -27,6 +28,10 @@ interface StudioState {
   selectedNodeId: string | null;
   customTemplates: typeof NODE_TEMPLATES;
   validationErrors: number;
+  themeMode: ThemeMode;
+  activeLens: Lens;
+  setThemeMode: (mode: ThemeMode) => void;
+  setActiveLens: (lens: Lens) => void;
   onNodesChange: (changes: NodeChange[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => boolean;
@@ -53,6 +58,11 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   selectedNodeId: null,
   customTemplates: [],
   validationErrors: 0,
+  themeMode: "dark",
+  activeLens: "all",
+
+  setThemeMode: (mode) => set({ themeMode: mode }),
+  setActiveLens: (lens) => set({ activeLens: lens }),
 
   onNodesChange: (changes) => {
     set({ nodes: applyNodeChanges(changes, get().nodes) as unknown as StudioNode[] });
@@ -96,8 +106,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       type: "smoothstep",
       animated: compatible,
       style: compatible
-        ? { stroke: "#3b82f6", strokeWidth: 2 }
-        : { stroke: "#ef4444", strokeWidth: 2, strokeDasharray: "6 3" },
+        ? { stroke: "var(--studio-accent)", strokeWidth: 2 }
+        : { stroke: "var(--studio-error)", strokeWidth: 2, strokeDasharray: "6 3" },
     };
 
     set({ edges: addEdge(newEdge, edges) });
@@ -174,7 +184,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         return {
           ...edge,
           animated: false,
-          style: { stroke: "#ef4444", strokeWidth: 2, strokeDasharray: "6 3" },
+          style: { stroke: "var(--studio-error)", strokeWidth: 2, strokeDasharray: "6 3" },
           data: { ...(edge.data || {}), valid: false },
         };
       }
@@ -189,7 +199,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         return {
           ...edge,
           animated: false,
-          style: { stroke: "#ef4444", strokeWidth: 2, strokeDasharray: "6 3" },
+          style: { stroke: "var(--studio-error)", strokeWidth: 2, strokeDasharray: "6 3" },
           data: { ...(edge.data || {}), valid: false },
         };
       }
@@ -199,8 +209,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         ...edge,
         animated: valid,
         style: valid
-          ? { stroke: "#3b82f6", strokeWidth: 2 }
-          : { stroke: "#ef4444", strokeWidth: 2, strokeDasharray: "6 3" },
+          ? { stroke: "var(--studio-accent)", strokeWidth: 2 }
+          : { stroke: "var(--studio-error)", strokeWidth: 2, strokeDasharray: "6 3" },
         data: { ...(edge.data || {}), valid },
       };
     });

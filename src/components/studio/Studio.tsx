@@ -17,6 +17,7 @@ import { Inspector } from "./Inspector";
 import { Toolbar } from "./Toolbar";
 import { ProjectsSidebar } from "./ProjectsSidebar";
 import { Project, fetchDiagram, saveDiagram } from "@/lib/supabase";
+import { cssVars, THEMES } from "./theme";
 
 const nodeTypes = {
   studioNode: StudioNode,
@@ -32,7 +33,11 @@ function StudioCanvas() {
     addNode,
     selectNode,
     autoLayout,
+    themeMode,
+    activeLens,
   } = useStudioStore();
+
+  const theme = THEMES[themeMode];
 
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const { screenToFlowPosition, fitView } = useReactFlow();
@@ -171,15 +176,16 @@ function StudioCanvas() {
 
   // Palette content to pass into ProjectsSidebar when in palette view
   const paletteContent = (
-    <Palette onDragStart={handleDragStart} onNewNode={handleNewNode} hideBranding />
+    <Palette onDragStart={handleDragStart} onNewNode={handleNewNode} hideBranding activeLens={activeLens} />
   );
 
   return (
     <div
       style={{
+        ...cssVars(themeMode),
         width: "100vw",
         height: "100vh",
-        background: "#0d0f14",
+        background: "var(--studio-bg)",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
@@ -252,7 +258,7 @@ function StudioCanvas() {
                     width="28"
                     height="28"
                     fill="none"
-                    stroke="#3b82f6"
+                    stroke="var(--studio-accent)"
                     strokeWidth="1.5"
                     viewBox="0 0 24 24"
                     opacity="0.5"
@@ -265,7 +271,7 @@ function StudioCanvas() {
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontSize: "16px",
                     fontWeight: 700,
-                    color: "#1e2535",
+                    color: "var(--studio-border)",
                   }}
                 >
                   Select or create a project
@@ -274,7 +280,7 @@ function StudioCanvas() {
                   style={{
                     fontFamily: "'Outfit', sans-serif",
                     fontSize: "13px",
-                    color: "#1a1f2a",
+                    color: "var(--studio-faint)",
                   }}
                 >
                   Choose a project from the left sidebar
@@ -296,31 +302,31 @@ function StudioCanvas() {
             snapToGrid
             snapGrid={[16, 16]}
             deleteKeyCode={["Backspace", "Delete"]}
-            style={{ background: "#0d0f14" }}
+            style={{ background: "var(--studio-bg)" }}
             proOptions={{ hideAttribution: true }}
           >
             <Background
               variant={BackgroundVariant.Dots}
               gap={24}
               size={1.5}
-              color="#1e2330"
+              color={theme.grid}
             />
             <MiniMap
               style={{
-                background: "#13161f",
-                border: "1px solid #1f2535",
+                background: "var(--studio-surface)",
+                border: "1px solid var(--studio-border)",
                 borderRadius: "8px",
               }}
               nodeColor={(node) => {
                 const n = node as any;
-                return n.data?.color || "#3b82f6";
+                return n.data?.color || "var(--studio-accent)";
               }}
-              maskColor="rgba(13,15,20,0.8)"
+              maskColor={themeMode === "dark" ? "rgba(13,15,20,0.8)" : "rgba(255,255,255,0.6)"}
             />
             <Controls
               style={{
-                background: "#13161f",
-                border: "1px solid #1f2535",
+                background: "var(--studio-surface)",
+                border: "1px solid var(--studio-border)",
                 borderRadius: "8px",
               }}
             />
@@ -355,7 +361,7 @@ function StudioCanvas() {
                       width="28"
                       height="28"
                       fill="none"
-                      stroke="#3b82f6"
+                      stroke="var(--studio-accent)"
                       strokeWidth="1.5"
                       viewBox="0 0 24 24"
                       opacity="0.7"
@@ -371,7 +377,7 @@ function StudioCanvas() {
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: "16px",
                       fontWeight: 700,
-                      color: "#334155",
+                      color: "var(--studio-faint)",
                     }}
                   >
                     Drop nodes to start building
@@ -380,7 +386,7 @@ function StudioCanvas() {
                     style={{
                       fontFamily: "'Outfit', sans-serif",
                       fontSize: "13px",
-                      color: "#1e2535",
+                      color: "var(--studio-border)",
                     }}
                   >
                     Drag from the palette on the left

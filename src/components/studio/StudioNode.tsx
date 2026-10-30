@@ -9,16 +9,16 @@ type StudioNodeProps = NodeProps & { data: StudioNodeData; selected: boolean };
 export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
   const [hoveredPort, setHoveredPort] = useState<string | null>(null);
 
-  const categoryColor = CATEGORY_COLORS[data.category] || "#3b82f6";
+  const categoryColor = CATEGORY_COLORS[data.category] || "var(--studio-accent)";
 
   return (
     <div
       className="studio-node"
       style={{
-        background: "#1a1f2e",
+        background: "var(--studio-node)",
         border: selected
-          ? "2px solid #3b82f6"
-          : "1px solid #1f2535",
+          ? "2px solid var(--studio-accent)"
+          : "1px solid var(--studio-border)",
         borderRadius: "8px",
         minWidth: "200px",
         maxWidth: "260px",
@@ -35,7 +35,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
       <div
         style={{
           background: `linear-gradient(135deg, ${categoryColor}22, ${categoryColor}11)`,
-          borderBottom: `1px solid #1f2535`,
+          borderBottom: `1px solid var(--studio-border)`,
           padding: "10px 14px 8px",
           borderRadius: "8px 8px 0 0",
           position: "relative",
@@ -56,7 +56,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
           style={{
             fontSize: "13px",
             fontWeight: 700,
-            color: "#e2e8f0",
+            color: "var(--studio-text)",
             letterSpacing: "0.02em",
             marginLeft: "4px",
           }}
@@ -90,7 +90,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
           <span
             style={{
               fontSize: "9px",
-              color: "#475569",
+              color: "var(--studio-text-faint)",
               fontFamily: "'JetBrains Mono', monospace",
             }}
           >
@@ -141,7 +141,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#94a3b8",
+                    color: "var(--studio-text-muted)",
                     fontFamily: "'JetBrains Mono', monospace",
                     paddingLeft: "4px",
                     whiteSpace: "nowrap",
@@ -158,7 +158,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
                       top: "50%",
                       transform: "translateY(-50%)",
                       marginLeft: "8px",
-                      background: "#0d0f14",
+                      background: "var(--studio-bg)",
                       border: `1px solid ${color}60`,
                       borderRadius: "4px",
                       padding: "4px 8px",
@@ -170,11 +170,11 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
                     <span style={{ color, fontSize: "10px", fontFamily: "'JetBrains Mono', monospace" }}>
                       {DATA_TYPE_LABELS[port.dataType]}
                     </span>
-                    <span style={{ color: "#475569", fontSize: "10px", marginLeft: "4px" }}>
+                    <span style={{ color: "var(--studio-text-faint)", fontSize: "10px", marginLeft: "4px" }}>
                       {port.cardinality}
                     </span>
                     {port.required && (
-                      <span style={{ color: "#ef4444", fontSize: "10px", marginLeft: "4px" }}>*</span>
+                      <span style={{ color: "var(--studio-error)", fontSize: "10px", marginLeft: "4px" }}>*</span>
                     )}
                   </div>
                 )}
@@ -198,7 +198,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#94a3b8",
+                    color: "var(--studio-text-muted)",
                     fontFamily: "'JetBrains Mono', monospace",
                     paddingRight: "4px",
                     whiteSpace: "nowrap",
@@ -233,7 +233,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
                       top: "50%",
                       transform: "translateY(-50%)",
                       marginRight: "8px",
-                      background: "#0d0f14",
+                      background: "var(--studio-bg)",
                       border: `1px solid ${color}60`,
                       borderRadius: "4px",
                       padding: "4px 8px",
@@ -245,7 +245,7 @@ export const StudioNode = memo(({ data, selected, id }: StudioNodeProps) => {
                     <span style={{ color, fontSize: "10px", fontFamily: "'JetBrains Mono', monospace" }}>
                       {DATA_TYPE_LABELS[port.dataType]}
                     </span>
-                    <span style={{ color: "#475569", fontSize: "10px", marginLeft: "4px" }}>
+                    <span style={{ color: "var(--studio-text-faint)", fontSize: "10px", marginLeft: "4px" }}>
                       {port.cardinality}
                     </span>
                   </div>

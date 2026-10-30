@@ -3,6 +3,7 @@ import { Search, Plus, ChevronDown, ChevronRight, Layers } from "lucide-react";
 import { NODE_TEMPLATES, CATEGORY_COLORS } from "./nodeTemplates";
 import { NodeCategory, NodeTemplate } from "./types";
 import { useStudioStore } from "./store";
+import { Lens, LENSES } from "./theme";
 
 const CATEGORIES: NodeCategory[] = [
   "Transformations",
@@ -36,9 +37,10 @@ interface PaletteProps {
   onDragStart: (templateId: string) => void;
   onNewNode: () => void;
   hideBranding?: boolean;
+  activeLens?: Lens;
 }
 
-export function Palette({ onDragStart, onNewNode, hideBranding = false }: PaletteProps) {
+export function Palette({ onDragStart, onNewNode, hideBranding = false, activeLens = "all" }: PaletteProps) {
   const [search, setSearch] = useState("");
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(CATEGORIES.map((c) => [c, true]))
@@ -67,14 +69,20 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
     return collapsed;
   }, [search, collapsed]);
 
+  const allowedCategories = useMemo(() => {
+    const only = LENSES[activeLens]?.only;
+    return only ? new Set<NodeCategory>(only) : null;
+  }, [activeLens]);
+
   const byCategory = useMemo(() => {
     const map: Record<string, NodeTemplate[]> = {};
     CATEGORIES.forEach((c) => {
+      if (allowedCategories && !allowedCategories.has(c)) return;
       const items = filtered.filter((t) => t.category === c);
       if (items.length > 0) map[c] = items;
     });
     return map;
-  }, [filtered]);
+  }, [filtered, allowedCategories]);
 
   const toggleCategory = (cat: string) => {
     setCollapsed((prev) => ({ ...prev, [cat]: !prev[cat] }));
@@ -85,8 +93,8 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
       style={{
         width: hideBranding ? "100%" : "240px",
         height: "100%",
-        background: hideBranding ? "transparent" : "#13161f",
-        borderRight: hideBranding ? "none" : "1px solid #1f2535",
+        background: hideBranding ? "transparent" : "var(--studio-surface)",
+        borderRight: hideBranding ? "none" : "1px solid var(--studio-border)",
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Space Grotesk', sans-serif",
@@ -97,14 +105,14 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
       <div
         style={{
           padding: "16px 14px 12px",
-          borderBottom: "1px solid #1f2535",
+          borderBottom: "1px solid var(--studio-border)",
         }}
       >
         <div
           style={{
             fontSize: "11px",
             fontWeight: 700,
-            color: "#3b82f6",
+            color: "var(--studio-accent)",
             letterSpacing: "0.1em",
             textTransform: "uppercase",
             marginBottom: "10px",
@@ -122,7 +130,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
               transform: "translateY(-50%)",
               width: "14px",
               height: "14px",
-              color: "#475569",
+              color: "var(--studio-text-faint)",
             }}
           />
           <input
@@ -131,21 +139,21 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
             placeholder="Search nodes…"
             style={{
               width: "100%",
-              background: "#0d0f14",
-              border: "1px solid #1f2535",
+              background: "var(--studio-bg)",
+              border: "1px solid var(--studio-border)",
               borderRadius: "6px",
               padding: "7px 10px 7px 30px",
               fontSize: "12px",
-              color: "#e2e8f0",
+              color: "var(--studio-text)",
               outline: "none",
               fontFamily: "'Outfit', sans-serif",
               boxSizing: "border-box",
             }}
             onFocus={(e) => {
-              e.target.style.borderColor = "#3b82f6";
+              e.target.style.borderColor = "var(--studio-accent)";
             }}
             onBlur={(e) => {
-              e.target.style.borderColor = "#1f2535";
+              e.target.style.borderColor = "var(--studio-border)";
             }}
           />
         </div>
@@ -154,7 +162,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
 
       {/* Search when hideBranding */}
       {hideBranding && (
-        <div style={{ padding: "8px 14px 6px", borderBottom: "1px solid #1f2535" }}>
+        <div style={{ padding: "8px 14px 6px", borderBottom: "1px solid var(--studio-border)" }}>
           <div style={{ position: "relative" }}>
             <Search
               style={{
@@ -164,7 +172,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
                 transform: "translateY(-50%)",
                 width: "14px",
                 height: "14px",
-                color: "#475569",
+                color: "var(--studio-text-faint)",
               }}
             />
             <input
@@ -173,18 +181,18 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
               placeholder="Search nodes…"
               style={{
                 width: "100%",
-                background: "#0d0f14",
-                border: "1px solid #1f2535",
+                background: "var(--studio-bg)",
+                border: "1px solid var(--studio-border)",
                 borderRadius: "6px",
                 padding: "7px 10px 7px 30px",
                 fontSize: "12px",
-                color: "#e2e8f0",
+                color: "var(--studio-text)",
                 outline: "none",
                 fontFamily: "'Outfit', sans-serif",
                 boxSizing: "border-box",
               }}
-              onFocus={(e) => { e.target.style.borderColor = "#3b82f6"; }}
-              onBlur={(e) => { e.target.style.borderColor = "#1f2535"; }}
+              onFocus={(e) => { e.target.style.borderColor = "var(--studio-accent)"; }}
+              onBlur={(e) => { e.target.style.borderColor = "var(--studio-border)"; }}
             />
           </div>
         </div>
@@ -199,7 +207,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
         }}
       >
         {Object.entries(byCategory).map(([category, templates]) => {
-          const color = CATEGORY_COLORS[category] || "#3b82f6";
+          const color = CATEGORY_COLORS[category] || "var(--studio-accent)";
           const isCollapsed = effectiveCollapsed[category];
           const groupHeader = GROUP_FIRST_CATEGORY[category];
           // For sub-categories, show a shorter label (after the /)
@@ -216,15 +224,15 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
                     gap: "6px",
                     padding: "10px 14px 4px",
                     marginTop: "4px",
-                    borderTop: "1px solid #1f2535",
+                    borderTop: "1px solid var(--studio-border)",
                   }}
                 >
-                  <Layers style={{ width: "11px", height: "11px", color: "#7dd3fc" }} />
+                  <Layers style={{ width: "11px", height: "11px", color: "var(--studio-accent-soft)" }} />
                   <span
                     style={{
                       fontSize: "10px",
                       fontWeight: 700,
-                      color: "#7dd3fc",
+                      color: "var(--studio-accent-soft)",
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
                       fontFamily: "'JetBrains Mono', monospace",
@@ -245,7 +253,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
-                  color: "#64748b",
+                  color: "var(--studio-text-dim)",
                   fontSize: "10px",
                   fontWeight: 700,
                   letterSpacing: "0.08em",
@@ -290,7 +298,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
           <div
             style={{
               padding: "20px 14px",
-              color: "#475569",
+              color: "var(--studio-text-faint)",
               fontSize: "12px",
               textAlign: "center",
               fontFamily: "'Outfit', sans-serif",
@@ -305,7 +313,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
       <div
         style={{
           padding: "12px 14px",
-          borderTop: "1px solid #1f2535",
+          borderTop: "1px solid var(--studio-border)",
         }}
       >
         <button
@@ -320,7 +328,7 @@ export function Palette({ onDragStart, onNewNode, hideBranding = false }: Palett
             background: "rgba(59,130,246,0.12)",
             border: "1px solid rgba(59,130,246,0.3)",
             borderRadius: "6px",
-            color: "#3b82f6",
+            color: "var(--studio-accent)",
             fontSize: "12px",
             fontWeight: 600,
             cursor: "pointer",
@@ -371,7 +379,7 @@ function PaletteItem({
         gap: "8px",
         padding: "7px 14px",
         cursor: "grab",
-        background: hovered ? "rgba(255,255,255,0.04)" : "transparent",
+        background: hovered ? "var(--studio-hover)" : "transparent",
         transition: "background 0.15s, padding-left 0.15s",
         paddingLeft: hovered ? `${hoverLeft}px` : `${baseLeft}px`,
       }}
@@ -391,7 +399,7 @@ function PaletteItem({
           style={{
             fontSize: "12px",
             fontWeight: 600,
-            color: hovered ? "#e2e8f0" : "#94a3b8",
+            color: hovered ? "var(--studio-text)" : "var(--studio-text-muted)",
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -402,7 +410,7 @@ function PaletteItem({
         <div
           style={{
             fontSize: "10px",
-            color: "#475569",
+            color: "var(--studio-text-faint)",
             fontFamily: "'JetBrains Mono', monospace",
             display: "flex",
             gap: "6px",
